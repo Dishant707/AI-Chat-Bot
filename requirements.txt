@@ -1,0 +1,23 @@
+# Core dependencies
+google-generativeai
+python-dotenv
+
+# Web scraping  
+crawl4ai
+playwright
+beautifulsoup4
+aiohttp
+
+# Streamlit for web interface
+streamlit
+
+# Utilities
+more-itertools
+requests
+lxml
+
+# Note: If ChromaDB installation fails due to Python version:
+# Use Python 3.11 or 3.12 instead of 3.14
+# Or install packages individually:
+# pip install chromadb sentence-transformers --no-deps
+# pip install numpy torch transformers scikit-learn

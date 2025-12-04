@@ -14,8 +14,20 @@ from urllib.parse import urlparse
 
 load_dotenv()
 
-# Configure Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Configure Gemini - Try multiple ways to get API key
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    # Try Streamlit secrets
+    try:
+        api_key = st.secrets["GEMINI_API_KEY"]
+    except:
+        pass
+
+if not api_key:
+    st.error("⚠️ GEMINI_API_KEY not found! Please add it in Streamlit Cloud Secrets.")
+    st.stop()
+
+genai.configure(api_key=api_key)
 
 
 def scrape_url(url):

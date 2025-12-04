@@ -6,17 +6,29 @@ import argparse
 from dataclasses import dataclass
 from typing import Optional
 import asyncio
-import chromadb
+
+# Try to import chromadb, but don't fail if it's not available
+try:
+    import chromadb
+    CHROMADB_AVAILABLE = True
+except ImportError:
+    CHROMADB_AVAILABLE = False
+    chromadb = None
 
 import dotenv
 import google.generativeai as genai
 
-from utils import (
-    get_chroma_client,
-    get_or_create_collection,
-    query_collection,
-    format_results_as_context
-)
+# Try to import utils, but don't fail if chromadb is not available
+if CHROMADB_AVAILABLE:
+    try:
+        from utils import (
+            get_chroma_client,
+            get_or_create_collection,
+            query_collection,
+            format_results_as_context
+        )
+    except ImportError:
+        CHROMADB_AVAILABLE = False
 
 # Load environment variables from .env file
 dotenv.load_dotenv()

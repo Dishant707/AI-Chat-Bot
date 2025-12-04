@@ -3,9 +3,28 @@
 import os
 from typing import List, Dict, Any, Optional
 
-import chromadb
-from chromadb.utils import embedding_functions
-from more_itertools import batched
+# Try to import chromadb, but don't fail if it's not available
+try:
+    import chromadb
+    from chromadb.utils import embedding_functions
+    CHROMADB_AVAILABLE = True
+except ImportError:
+    CHROMADB_AVAILABLE = False
+    chromadb = None
+    embedding_functions = None
+
+try:
+    from more_itertools import batched
+except ImportError:
+    # Fallback if more_itertools is not available
+    def batched(iterable, n):
+        from itertools import islice
+        it = iter(iterable)
+        while True:
+            batch = list(islice(it, n))
+            if not batch:
+                return
+            yield batch
 
 
 def get_chroma_client(persist_directory: str) -> chromadb.PersistentClient:

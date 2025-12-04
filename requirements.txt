@@ -6,10 +6,6 @@ python-dotenv>=1.0.0
 beautifulsoup4>=4.12.0
 requests>=2.31.0
 lxml>=5.0.0
-aiohttp>=3.9.0
 
 # Streamlit for web interface
 streamlit>=1.30.0
-
-# Utilities
-more-itertools>=10.0.0
